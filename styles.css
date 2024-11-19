@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.menu-bar {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.menu-group {
+    display: flex;
+    gap: 5px;
+}
+
+button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #e0e0e0;
+}
+
+#editor {
+    width: 100%;
+    height: 70vh;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.status-bar {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    display: flex;
+    gap: 20px;
+}
+
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1e1e1e;
+    color: #fff;
+}
+
+body.dark-mode #editor {
+    background-color: #2d2d2d;
+    color: #fff;
+    border-color: #444;
+}
+
+body.dark-mode .menu-bar,
+body.dark-mode .status-bar {
+    background-color: #2d2d2d;
+}
+
+body.dark-mode button {
+    background-color: #3d3d3d;
+    color: #fff;
+}
+
+body.dark-mode button:hover {
+    background-color: #4d4d4d;
+}
+
+.menu-bar button {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menu-bar button i {
+    font-size: 16px;
+}
+
+/* Tooltip styles */
+.menu-bar button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+/* Add to existing dark mode styles */
+body.dark-mode .menu-bar button[title]:hover::after {
+    background-color: #666;
+}

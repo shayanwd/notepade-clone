@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notepad</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="menu-bar">
+            <div class="menu-group">
+                <button id="newFile" title="New"><i class="fas fa-file"></i></button>
+                <button id="openFile" title="Open"><i class="fas fa-folder-open"></i></button>
+                <button id="saveFile" title="Save"><i class="fas fa-save"></i></button>
+                <button id="shareFile" title="Share"><i class="fas fa-share-alt"></i></button>
+            </div>
+            <div class="menu-group">
+                <button id="cutText" title="Cut"><i class="fas fa-cut"></i></button>
+                <button id="copyText" title="Copy"><i class="fas fa-copy"></i></button>
+                <button id="pasteText" title="Paste"><i class="fas fa-paste"></i></button>
+                <button id="duplicateText" title="Duplicate"><i class="fas fa-clone"></i></button>
+            </div>
+            <div class="menu-group">
+                <button id="undoBtn" title="Undo"><i class="fas fa-undo"></i></button>
+                <button id="redoBtn" title="Redo"><i class="fas fa-redo"></i></button>
+            </div>
+            <div class="menu-group">
+                <button id="zoomIn" title="Zoom In"><i class="fas fa-search-plus"></i></button>
+                <button id="zoomOut" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
+            </div>
+            <div class="menu-group">
+                <button id="darkMode" title="Dark Mode"><i class="fas fa-moon"></i></button>
+            </div>
+        </div>
+
+        <textarea id="editor" spellcheck="false"></textarea>
+
+        <div class="status-bar">
+            <span id="charCount">Characters: 0</span>
+            <span id="wordCount">Words: 0</span>
+            <span id="lineCount">Lines: 0</span>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" style="display: none" accept=".txt">
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
