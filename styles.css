@@ -52,6 +52,10 @@ button:hover {
     font-family: 'Courier New', Courier, monospace;
     font-size: 14px;
     line-height: 1.5;
+    background-image: linear-gradient(#e5e5e5 1px, transparent 1px);
+    background-size: 100% 24px;
+    line-height: 24px;
+    padding: 0 15px 15px;
 }
 
 .status-bar {
@@ -73,6 +77,7 @@ body.dark-mode #editor {
     background-color: #2d2d2d;
     color: #fff;
     border-color: #444;
+    background-image: linear-gradient(#3d3d3d 1px, transparent 1px);
 }
 
 body.dark-mode .menu-bar,
@@ -120,4 +125,302 @@ body.dark-mode button:hover {
 /* Add to existing dark mode styles */
 body.dark-mode .menu-bar button[title]:hover::after {
     background-color: #666;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fff;
+    margin: 50px auto;
+    padding: 24px;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#closePreferences {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: #666;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.2s;
+}
+
+#closePreferences:hover {
+    background-color: #f0f0f0;
+}
+
+.reset-btn {
+    background-color: #f0f0f0;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.2s;
+}
+
+.reset-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.preference-item {
+    margin-bottom: 24px;
+}
+
+.preference-item label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+/* Switch styles */
+.switch-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:checked+.slider:before {
+    transform: translateX(26px);
+}
+
+/* Input styles */
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-with-unit input {
+    width: 80px;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.unit {
+    color: #666;
+}
+
+/* Font search styles */
+.font-search {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.search-input {
+    position: relative;
+}
+
+.search-input i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.search-input input {
+    width: 100%;
+    padding: 8px 12px 8px 36px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#fontFamilySelect {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+#fontWeightSelect {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* Dark mode additions */
+body.dark-mode .modal-content {
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+body.dark-mode .modal-header h2 {
+    color: #fff;
+}
+
+body.dark-mode #closePreferences {
+    color: #fff;
+}
+
+body.dark-mode #closePreferences:hover {
+    background-color: #333;
+}
+
+body.dark-mode .reset-btn {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+body.dark-mode .reset-btn:hover {
+    background-color: #444;
+}
+
+body.dark-mode .preference-item label {
+    color: #fff;
+}
+
+body.dark-mode .switch-label span {
+    color: #fff;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+    background-color: #2d2d2d;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+body.dark-mode input:focus,
+body.dark-mode select:focus {
+    border-color: #2196F3;
+    outline: none;
+}
+
+body.dark-mode .search-input i {
+    color: #888;
+}
+
+body.dark-mode .unit {
+    color: #888;
+}
+
+body.dark-mode #fontFamilySelect,
+body.dark-mode #fontWeightSelect {
+    background-color: #2d2d2d;
+}
+
+body.dark-mode #fontFamilySelect option,
+body.dark-mode #fontWeightSelect option {
+    background-color: #2d2d2d;
+    color: #fff;
+}
+
+body.dark-mode #fontFamilySelect optgroup {
+    background-color: #1e1e1e;
+    color: #888;
+}
+
+/* Add hover states for select options in dark mode */
+body.dark-mode #fontFamilySelect option:hover,
+body.dark-mode #fontWeightSelect option:hover {
+    background-color: #444;
+}
+
+/* Update the slider colors in dark mode */
+body.dark-mode .slider {
+    background-color: #444;
+}
+
+body.dark-mode input:checked+.slider {
+    background-color: #2196F3;
+}
+
+body.dark-mode .slider:before {
+    background-color: #fff;
+}
+
+/* Add a toggle button style */
+.menu-bar button.active {
+    background-color: #e0e0e0;
+}
+
+body.dark-mode .menu-bar button.active {
+    background-color: #4d4d4d;
 }

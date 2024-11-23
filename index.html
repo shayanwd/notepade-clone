@@ -34,6 +34,8 @@
             </div>
             <div class="menu-group">
                 <button id="darkMode" title="Dark Mode"><i class="fas fa-moon"></i></button>
+                <button id="preferences" title="Preferences"><i class="fas fa-cog"></i></button>
+                <button id="toggleLines" title="Toggle Lines"><i class="fas fa-bars"></i></button>
             </div>
         </div>
 
@@ -46,7 +48,60 @@
         </div>
     </div>
 
-    <input type="file" id="fileInput" style="display: none" accept=".txt">
+    <div id="preferencesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Preferences</h2>
+                <button id="closePreferences"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body">
+                <button id="resetPreferences" class="reset-btn">
+                    <i class="fas fa-undo-alt"></i> Reset preferences
+                </button>
+
+                <div class="preference-item">
+                    <label class="switch-label">
+                        <span>Auto save on page close</span>
+                        <div class="switch">
+                            <input type="checkbox" id="autoSaveOnClose">
+                            <span class="slider"></span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="preference-item">
+                    <label>Font size</label>
+                    <div class="input-with-unit">
+                        <input type="number" id="fontSizeInput" min="8" max="72" value="14">
+                        <span class="unit">px</span>
+                    </div>
+                </div>
+
+                <div class="preference-item">
+                    <label>Font family</label>
+                    <div class="font-search">
+                        <div class="search-input">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="fontSearch" placeholder="Search fonts...">
+                        </div>
+                        <select id="fontFamilySelect" size="5"></select>
+                    </div>
+                </div>
+
+                <div class="preference-item">
+                    <label>Font weight</label>
+                    <select id="fontWeightSelect">
+                        <option value="300">Light</option>
+                        <option value="400">Regular</option>
+                        <option value="500">Medium</option>
+                        <option value="700">Bold</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <input type="file" id="fileInput" style="display: none">
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="script.js"></script>
