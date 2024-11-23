@@ -11,31 +11,55 @@
 
 <body>
     <div class="container">
-        <div class="menu-bar">
+        <div class="top-menu-bar">
+            <div class="dropdown">
+                <button class="dropbtn">File</button>
+                <div class="dropdown-content">
+                    <a href="#" id="newFile"><i class="fas fa-file"></i> New <span>Ctrl+N</span></a>
+                    <a href="#" id="openFile"><i class="fas fa-folder-open"></i> Open <span>Ctrl+O</span></a>
+                    <a href="#" id="saveFile"><i class="fas fa-save"></i> Save <span>Ctrl+S</span></a>
+                    <a href="#" id="saveAsFile"><i class="fas fa-save"></i> Save As <span>Ctrl+Shift+S</span></a>
+                    <a href="#" id="shareFile"><i class="fas fa-share-alt"></i> Share</a>
+                    <a href="#" id="printFile"><i class="fas fa-print"></i> Print <span>Ctrl+P</span></a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">Edit</button>
+                <div class="dropdown-content">
+                    <a href="#" id="cutText"><i class="fas fa-cut"></i> Cut <span>Ctrl+X</span></a>
+                    <a href="#" id="copyText"><i class="fas fa-copy"></i> Copy <span>Ctrl+C</span></a>
+                    <a href="#" id="pasteText"><i class="fas fa-paste"></i> Paste <span>Ctrl+V</span></a>
+                    <a href="#" id="duplicateText"><i class="fas fa-clone"></i> Duplicate</a>
+                </div>
+            </div>
+            <div class="dropdown">
+                <button class="dropbtn">View</button>
+                <div class="dropdown-content">
+                    <a href="#" id="toggleLines"><i class="fas fa-bars"></i> Toggle Lines</a>
+                    <a href="#" id="darkMode"><i class="fas fa-moon"></i> Dark Mode</a>
+                    <a href="#" id="zoomIn"><i class="fas fa-search-plus"></i> Zoom In <span>Ctrl+=</span></a>
+                    <a href="#" id="zoomOut"><i class="fas fa-search-minus"></i> Zoom Out <span>Ctrl+-</span></a>
+                    <a href="#" id="preferences"><i class="fas fa-cog"></i> Preferences</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="toolbar">
             <div class="menu-group">
-                <button id="newFile" title="New"><i class="fas fa-file"></i></button>
-                <button id="openFile" title="Open"><i class="fas fa-folder-open"></i></button>
-                <button id="saveFile" title="Save"><i class="fas fa-save"></i></button>
-                <button id="shareFile" title="Share"><i class="fas fa-share-alt"></i></button>
+                <button id="newFileBtn" title="New"><i class="fas fa-file"></i></button>
+                <button id="openFileBtn" title="Open"><i class="fas fa-folder-open"></i></button>
+                <button id="saveFileBtn" title="Save"><i class="fas fa-save"></i></button>
+                <button id="shareFileBtn" title="Share"><i class="fas fa-share-alt"></i></button>
             </div>
             <div class="menu-group">
-                <button id="cutText" title="Cut"><i class="fas fa-cut"></i></button>
-                <button id="copyText" title="Copy"><i class="fas fa-copy"></i></button>
-                <button id="pasteText" title="Paste"><i class="fas fa-paste"></i></button>
-                <button id="duplicateText" title="Duplicate"><i class="fas fa-clone"></i></button>
+                <button id="cutTextBtn" title="Cut"><i class="fas fa-cut"></i></button>
+                <button id="copyTextBtn" title="Copy"><i class="fas fa-copy"></i></button>
+                <button id="pasteTextBtn" title="Paste"><i class="fas fa-paste"></i></button>
+                <button id="duplicateTextBtn" title="Duplicate"><i class="fas fa-clone"></i></button>
             </div>
             <div class="menu-group">
                 <button id="undoBtn" title="Undo"><i class="fas fa-undo"></i></button>
                 <button id="redoBtn" title="Redo"><i class="fas fa-redo"></i></button>
-            </div>
-            <div class="menu-group">
-                <button id="zoomIn" title="Zoom In"><i class="fas fa-search-plus"></i></button>
-                <button id="zoomOut" title="Zoom Out"><i class="fas fa-search-minus"></i></button>
-            </div>
-            <div class="menu-group">
-                <button id="darkMode" title="Dark Mode"><i class="fas fa-moon"></i></button>
-                <button id="preferences" title="Preferences"><i class="fas fa-cog"></i></button>
-                <button id="toggleLines" title="Toggle Lines"><i class="fas fa-bars"></i></button>
             </div>
         </div>
 

@@ -26,10 +26,81 @@ $(document).ready(function() {
         saveState();
     });
 
-    // New file
-    $('#newFile').click(function() {
+    // Update the click handlers to handle both dropdown and toolbar buttons
+    function setupDualButtonHandler(dropdownId, toolbarId, handler) {
+        $(`#${dropdownId}, #${toolbarId}`).click(handler);
+    }
+
+    // Set up handlers for both dropdown and toolbar buttons
+    setupDualButtonHandler('newFile', 'newFileBtn', function() {
         if (confirm('Are you sure? Any unsaved changes will be lost.')) {
             editor.val('');
+            updateCounts();
+        }
+    });
+
+    setupDualButtonHandler('openFile', 'openFileBtn', function() {
+        $('#fileInput').click();
+    });
+
+    setupDualButtonHandler('saveFile', 'saveFileBtn', function() {
+        const content = editor.val();
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        
+        const originalFile = $('#fileInput')[0].files[0];
+        a.download = originalFile ? originalFile.name : 'notepad.txt';
+        
+        a.click();
+        window.URL.revokeObjectURL(url);
+    });
+
+    setupDualButtonHandler('shareFile', 'shareFileBtn', function() {
+        if (navigator.share) {
+            navigator.share({
+                title: 'Notepad Content',
+                text: editor.val(),
+            }).catch(console.error);
+        } else {
+            alert('Sharing is not supported in your browser');
+        }
+    });
+
+    setupDualButtonHandler('cutText', 'cutTextBtn', function() {
+        const selectedText = editor.val().substring(editor[0].selectionStart, editor[0].selectionEnd);
+        navigator.clipboard.writeText(selectedText).then(() => {
+            const start = editor[0].selectionStart;
+            const end = editor[0].selectionEnd;
+            const text = editor.val();
+            editor.val(text.slice(0, start) + text.slice(end));
+            updateCounts();
+        });
+    });
+
+    setupDualButtonHandler('copyText', 'copyTextBtn', function() {
+        const selectedText = editor.val().substring(editor[0].selectionStart, editor[0].selectionEnd);
+        navigator.clipboard.writeText(selectedText);
+    });
+
+    setupDualButtonHandler('pasteText', 'pasteTextBtn', function() {
+        navigator.clipboard.readText().then(text => {
+            const start = editor[0].selectionStart;
+            const end = editor[0].selectionEnd;
+            const currentText = editor.val();
+            editor.val(currentText.slice(0, start) + text + currentText.slice(end));
+            updateCounts();
+        });
+    });
+
+    setupDualButtonHandler('duplicateText', 'duplicateTextBtn', function() {
+        const start = editor[0].selectionStart;
+        const end = editor[0].selectionEnd;
+        const selectedText = editor.val().substring(start, end);
+        if (selectedText) {
+            const currentText = editor.val();
+            editor.val(currentText.slice(0, end) + selectedText + currentText.slice(end));
             updateCounts();
         }
     });
@@ -147,22 +218,6 @@ $(document).ready(function() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
-    // Update save functionality to handle different file types
-    $('#saveFile').click(function() {
-        const content = editor.val();
-        const blob = new Blob([content], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        
-        // Get original file name if available
-        const originalFile = $('#fileInput')[0].files[0];
-        a.download = originalFile ? originalFile.name : 'notepad.txt';
-        
-        a.click();
-        window.URL.revokeObjectURL(url);
-    });
-
     // Undo
     $('#undoBtn').click(function() {
         if (undoStack.length > 0) {
@@ -197,59 +252,6 @@ $(document).ready(function() {
         editor.val(savedContent);
         updateCounts();
     }
-
-    // Cut text
-    $('#cutText').click(function() {
-        const selectedText = editor.val().substring(editor[0].selectionStart, editor[0].selectionEnd);
-        navigator.clipboard.writeText(selectedText).then(() => {
-            const start = editor[0].selectionStart;
-            const end = editor[0].selectionEnd;
-            const text = editor.val();
-            editor.val(text.slice(0, start) + text.slice(end));
-            updateCounts();
-        });
-    });
-
-    // Copy text
-    $('#copyText').click(function() {
-        const selectedText = editor.val().substring(editor[0].selectionStart, editor[0].selectionEnd);
-        navigator.clipboard.writeText(selectedText);
-    });
-
-    // Paste text
-    $('#pasteText').click(function() {
-        navigator.clipboard.readText().then(text => {
-            const start = editor[0].selectionStart;
-            const end = editor[0].selectionEnd;
-            const currentText = editor.val();
-            editor.val(currentText.slice(0, start) + text + currentText.slice(end));
-            updateCounts();
-        });
-    });
-
-    // Duplicate text
-    $('#duplicateText').click(function() {
-        const start = editor[0].selectionStart;
-        const end = editor[0].selectionEnd;
-        const selectedText = editor.val().substring(start, end);
-        if (selectedText) {
-            const currentText = editor.val();
-            editor.val(currentText.slice(0, end) + selectedText + currentText.slice(end));
-            updateCounts();
-        }
-    });
-
-    // Share text
-    $('#shareFile').click(function() {
-        if (navigator.share) {
-            navigator.share({
-                title: 'Notepad Content',
-                text: editor.val(),
-            }).catch(console.error);
-        } else {
-            alert('Sharing is not supported in your browser');
-        }
-    });
 
     // Zoom in
     $('#zoomIn').click(function() {
@@ -480,4 +482,96 @@ $(document).ready(function() {
             $('#toggleLines').addClass('active');
         }
     }
+
+    // Save As functionality
+    $('#saveAsFile').click(function() {
+        const content = editor.val();
+        const blob = new Blob([content], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        
+        // Prompt for filename
+        const filename = prompt('Enter file name:', 'notepad.txt');
+        if (filename) {
+            a.download = filename;
+            a.click();
+            window.URL.revokeObjectURL(url);
+        }
+    });
+
+    // Print functionality
+    $('#printFile').click(function() {
+        const content = editor.val();
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(`
+            <html>
+            <head>
+                <title>Print</title>
+                <style>
+                    body {
+                        font-family: 'Courier New', Courier, monospace;
+                        white-space: pre-wrap;
+                        padding: 20px;
+                    }
+                    @media print {
+                        body {
+                            color: #000;
+                        }
+                    }
+                </style>
+            </head>
+            <body>
+                ${content.replace(/</g, '&lt;').replace(/>/g, '&gt;')}
+            </body>
+            </html>
+        `);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        printWindow.close();
+    });
+
+    // Keyboard shortcuts for new menu items
+    $(document).keydown(function(e) {
+        if (e.ctrlKey || e.metaKey) {
+            switch(e.key.toLowerCase()) {
+                case 'n':
+                    e.preventDefault();
+                    $('#newFile').click();
+                    break;
+                case 'o':
+                    e.preventDefault();
+                    $('#openFile').click();
+                    break;
+                case 's':
+                    e.preventDefault();
+                    if (e.shiftKey) {
+                        $('#saveAsFile').click();
+                    } else {
+                        $('#saveFile').click();
+                    }
+                    break;
+                case 'p':
+                    e.preventDefault();
+                    $('#printFile').click();
+                    break;
+            }
+        }
+    });
+
+    // Add keyboard shortcut hints to dropdown items
+    const shortcuts = {
+        'newFile': 'Ctrl+N',
+        'openFile': 'Ctrl+O',
+        'saveFile': 'Ctrl+S',
+        'saveAsFile': 'Ctrl+Shift+S',
+        'printFile': 'Ctrl+P'
+    };
+
+    Object.entries(shortcuts).forEach(([id, shortcut]) => {
+        const element = $(`#${id}`);
+        const text = element.html();
+        element.html(`${text}<span style="margin-left: auto; opacity: 0.7">${shortcut}</span>`);
+    });
 }); 
