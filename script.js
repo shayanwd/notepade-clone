@@ -562,11 +562,11 @@ $(document).ready(function() {
 
     // Add keyboard shortcut hints to dropdown items
     const shortcuts = {
-        'newFile': 'Ctrl+N',
-        'openFile': 'Ctrl+O',
-        'saveFile': 'Ctrl+S',
-        'saveAsFile': 'Ctrl+Shift+S',
-        'printFile': 'Ctrl+P'
+        // 'newFile': 'Ctrl+N',
+        // 'openFile': 'Ctrl+O',
+        // 'saveFile': 'Ctrl+S',
+        // 'saveAsFile': 'Ctrl+Shift+S',
+        // 'printFile': 'Ctrl+P'
     };
 
     Object.entries(shortcuts).forEach(([id, shortcut]) => {
