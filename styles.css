@@ -739,3 +739,68 @@ body.dark-mode .slider {
 body.dark-mode input:checked+.slider {
     background-color: var(--primary-color);
 }
+
+/* Add new styles for social bar */
+.social-bar {
+    display: flex;
+    gap: 10px;
+    padding: 8px 15px;
+    background-color: var(--toolbar-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.social-bar a {
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.social-bar .facebook {
+    color: #1877f2;
+}
+
+.social-bar .twitter {
+    color: #1da1f2;
+}
+
+.social-bar .whatsapp {
+    color: #25d366;
+}
+
+.social-bar .email {
+    color: #ea4335;
+}
+
+.social-bar a:hover {
+    background-color: var(--hover-light);
+}
+
+.social-bar ul {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    list-style: none;
+}
+
+.social-bar ul li a {
+    text-decoration: none;
+    padding: 5px 10px;
+    transition: 0.2s;
+
+}
+
+.social-bar ul li a:hover {
+    background-color: rgb(238, 238, 238);
+}
+
+
+body.dark-mode .social-bar {
+    background-color: var(--toolbar-dark);
+    border-color: var(--border-dark);
+}
+
+body.dark-mode .social-bar a:hover {
+    background-color: var(--hover-dark);
+}

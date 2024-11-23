@@ -574,4 +574,80 @@ $(document).ready(function() {
         const text = element.html();
         element.html(`${text}<span style="margin-left: auto; opacity: 0.7">${shortcut}</span>`);
     });
+
+    // Social sharing functionality
+    function getShareableLink(text) {
+        const baseUrl = 'http://notepad.frototype.agency';
+        return `${baseUrl}?txt=${encodeURIComponent(text)}`;
+    }
+
+    $('#shareToFacebook').click(function(e) {
+        e.preventDefault();
+        const text = editor.val();
+        const shareUrl = getShareableLink(text);
+        const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`;
+        window.open(facebookUrl, '_blank', 'width=600,height=400');
+    });
+
+    $('#shareToTwitter').click(function(e) {
+        e.preventDefault();
+        const text = editor.val();
+        const shareUrl = getShareableLink(text);
+        const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(text)}`;
+        window.open(twitterUrl, '_blank', 'width=600,height=400');
+    });
+
+    $('#shareToWhatsapp').click(function(e) {
+        e.preventDefault();
+        const text = editor.val();
+        const shareUrl = getShareableLink(text);
+        const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text + ' ' + shareUrl)}`;
+        window.open(whatsappUrl, '_blank');
+    });
+
+    $('#shareToEmail').click(function(e) {
+        e.preventDefault();
+        const text = editor.val();
+        const shareUrl = getShareableLink(text);
+        const subject = 'Shared Notepad Content';
+        const body = `${text}\n\nShared via: ${shareUrl}`;
+        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        const results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Check for text parameter in URL and set editor content
+    const textFromUrl = getUrlParameter('txt');
+    if (textFromUrl) {
+        editor.val(textFromUrl);
+        updateCounts(); // Update character/word/line counts
+        saveState(); // Save initial state for undo functionality
+        
+        // Clear the URL parameter without refreshing the page
+        const newUrl = window.location.protocol + "//" + window.location.host + window.location.pathname;
+        window.history.replaceState({ path: newUrl }, '', newUrl);
+    } else {
+        // Load saved content from localStorage only if no URL parameter
+        const savedContent = localStorage.getItem('notepadContent');
+        if (savedContent) {
+            editor.val(savedContent);
+            updateCounts();
+            saveState();
+        }
+    }
+
+    
+
+
+
 }); 
+
+
+
+
+
