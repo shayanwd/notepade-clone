@@ -26,20 +26,32 @@ body {
 
 .menu-group {
     display: flex;
-    gap: 5px;
+    gap: 10px;
 }
 
-button {
-    padding: 8px 15px;
+.menu-group button {
+    /* padding: 8px 15px; */
     border: none;
-    border-radius: 4px;
-    background-color: #fff;
+    /* border-radius: 4px; */
+    /* background-color: #fff; */
     cursor: pointer;
+    background-color: transparent;
+    width: 30px;
+    min-width: 30px;
+    height: 30px;
     transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-button:hover {
-    background-color: #e0e0e0;
+.menu-group button:hover {
+    /* background-color: #e0e0e0; */
+}
+
+.menu-group button i {
+    color: #FD7E14;
+    font-size: 16px;
 }
 
 #editor {
@@ -56,16 +68,37 @@ button:hover {
     background-size: 100% 24px;
     line-height: 24px;
     padding: 0 15px 15px;
+    padding-left: 60px;
+}
 
+.editor-holder {
+    width: 100%;
+    height: max-content;
+    position: relative;
+}
+
+.editor-holder::before {
+    position: absolute;
+    top: 0;
+    left: 50px;
+    width: 1px;
+    height: 100%;
+    content: "";
+    background-color: #FD7E14;
+    background-size: 100% 24px;
+    line-height: 24px;
+    z-index: 99999;
+    pointer-events: none;
 }
 
 .status-bar {
     /* margin-top: 10px; */
     padding: 10px;
-    background-color: #f5f5f5;
+    background-color: #FAFAFA;
     border-radius: 5px;
     display: flex;
     gap: 20px;
+    padding-left: 50px;
 }
 
 /* Dark mode styles */
@@ -440,6 +473,9 @@ body.dark-mode .menu-bar button.active {
     cursor: pointer;
     background-color: transparent;
     color: inherit;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .dropbtn:hover {
@@ -495,8 +531,9 @@ body.dark-mode .dropbtn:hover {
 /* Top Menu Bar Styles */
 .top-menu-bar {
     display: flex;
-    background-color: #f5f5f5;
-    padding: 0;
+    background-color: #FAFAFA;
+    padding: 10px 10px;
+    padding-left: 30px;
     /* margin-bottom: 5px; */
     /* border-radius: 5px 5px 0 0; */
 }
@@ -507,27 +544,28 @@ body.dark-mode .dropbtn:hover {
 }
 
 .top-menu-bar .dropbtn {
-    padding: 8px 15px;
+    padding: 8px 5px 8px 15px;
     background: none;
     border: none;
-    font-size: 14px;
+    font-size: 16px;
     cursor: pointer;
 }
 
 .top-menu-bar .dropbtn:hover {
-    background-color: #e0e0e0;
+    background-color: #34343420;
 }
 
 .top-menu-bar .dropdown-content {
     display: none;
     position: absolute;
-    top: 100%;
+    top: 80%;
     left: 0;
     background-color: #f9f9f9;
     min-width: 200px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     border-radius: 4px;
+    z-index: 99;
 }
 
 .top-menu-bar .dropdown-content a {
@@ -554,6 +592,7 @@ body.dark-mode .dropbtn:hover {
 
 .top-menu-bar .dropdown:hover .dropdown-content {
     display: block;
+
 }
 
 /* Dark mode styles for top menu */
@@ -585,11 +624,12 @@ body.dark-mode .top-menu-bar .dropdown-content a:hover {
 /* Rename existing menu-bar to toolbar */
 .toolbar {
     display: flex;
-    gap: 20px;
+    gap: 10px;
     /* margin-bottom: 10px; */
     padding: 10px;
     background-color: #f5f5f5;
     border-radius: 0 0 5px 5px;
+    padding-left: 40px;
 }
 
 /* Update dark mode for toolbar */
@@ -745,8 +785,9 @@ body.dark-mode input:checked+.slider {
     display: flex;
     gap: 10px;
     padding: 8px 15px;
-    background-color: var(--toolbar-light);
+    background-color: #66B867 !important;
     border-bottom: 1px solid var(--border-light);
+    padding-left: 30px;
 }
 
 .social-bar a {
@@ -754,8 +795,11 @@ body.dark-mode input:checked+.slider {
     text-decoration: none;
     padding: 5px;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
     transition: background-color 0.2s;
 }
+
 
 .social-bar .facebook {
     color: #1877f2;
@@ -788,6 +832,7 @@ body.dark-mode input:checked+.slider {
     text-decoration: none;
     padding: 5px 10px;
     transition: 0.2s;
+    font-size: 20px;
 
 }
 
