@@ -87,7 +87,7 @@ body {
     background-color: #FD7E14;
     background-size: 100% 24px;
     line-height: 24px;
-    z-index: 99999;
+    z-index: 9;
     pointer-events: none;
 }
 
@@ -488,9 +488,10 @@ body.dark-mode .menu-bar button.active {
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+
     border-radius: 4px;
     margin-top: 2px;
+    z-index: 9999999999;
 }
 
 .dropdown-content a {
@@ -788,6 +789,7 @@ body.dark-mode input:checked+.slider {
     background-color: #66B867 !important;
     border-bottom: 1px solid var(--border-light);
     padding-left: 30px;
+    flex-wrap: wrap;
 }
 
 .social-bar a {
@@ -826,6 +828,7 @@ body.dark-mode input:checked+.slider {
     gap: 5px;
     align-items: center;
     list-style: none;
+    color: black;
 }
 
 .social-bar ul li a {
@@ -833,6 +836,7 @@ body.dark-mode input:checked+.slider {
     padding: 5px 10px;
     transition: 0.2s;
     font-size: 20px;
+    color: black;
 
 }
 
@@ -848,4 +852,83 @@ body.dark-mode .social-bar {
 
 body.dark-mode .social-bar a:hover {
     background-color: var(--hover-dark);
+}
+
+body.dark-mode button svg {
+    filter: invert(1);
+}
+
+
+
+@media only screen and (max-width: 767px) {
+    .social-bar ul li a {
+        padding: 5px 5px;
+        font-size: 15px;
+    }
+
+    .social-bar {
+        gap: 5px;
+        padding: 10px !important;
+    }
+
+    .social-bar ul {
+        width: 100%;
+    }
+
+    .top-menu-bar {
+        padding-left: 10px !important;
+        padding-left: 0 !important;
+    }
+
+    .toolbar {
+        padding-left: 10px;
+    }
+
+    #editor {
+        padding-left: 20px;
+    }
+
+    .editor-holder::before {
+        left: 20px;
+    }
+
+    #editor {
+        padding-left: 25px;
+    }
+
+    .modal-content {
+        padding: 10px;
+    }
+
+    .modal-content h2 {
+        font-size: 20px;
+    }
+
+    .modal-content * {
+        font-size: 14px;
+    }
+
+    .preference-item label {
+        display: flex;
+        align-items: center;
+    }
+
+    .dropdown:last-child .dropdown-content {
+        left: inherit !important;
+        right: 0 !important;
+    }
+
+    .toolbar {
+        overflow: auto;
+        scroll-snap-type: x mandatory;
+    }
+
+    .toolbar .menu-group {
+        scroll-snap-align: start;
+    }
+
+    .status-bar {
+        padding-left: 20px;
+    }
+
 }
