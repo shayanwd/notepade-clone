@@ -669,9 +669,37 @@ $(document).ready(function() {
         }
     });
 
-    
-
-
+    // Enhanced auto-save functionality
+    const autoSave = {
+        interval: null,
+        lastSave: null,
+        
+        start(interval = 30000) {
+            this.stop();
+            this.interval = setInterval(() => this.save(), interval);
+        },
+        
+        stop() {
+            if (this.interval) clearInterval(this.interval);
+        },
+        
+        save() {
+            const content = editor.val();
+            const timestamp = new Date().toISOString();
+            
+            localStorage.setItem('notepadContent', content);
+            localStorage.setItem('lastSave', timestamp);
+            this.lastSave = timestamp;
+            
+            // Update status
+            $('.status-bar').append(`
+                <span class="save-status">Saved at ${new Date(timestamp).toLocaleTimeString()}</span>
+            `);
+            
+            // Remove status after 2 seconds
+            setTimeout(() => $('.save-status').remove(), 2000);
+        }
+    };
 
 }); 
 
