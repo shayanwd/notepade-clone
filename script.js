@@ -239,6 +239,12 @@ $(document).ready(function() {
     // Dark mode toggle
     $('#darkMode').click(function() {
         $('body').toggleClass('dark-mode');
+        // Update the mode text
+        const modeText = $('body').hasClass('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        $('.mode-text').text(modeText);
+        // Optionally change the icon
+        const icon = $('body').hasClass('dark-mode') ? 'fa-sun' : 'fa-moon';
+        $(this).find('i').removeClass('fa-moon fa-sun').addClass(icon);
     });
 
     // Auto-save to localStorage
@@ -640,6 +646,15 @@ $(document).ready(function() {
             saveState();
         }
     }
+
+    // Also add this to ensure correct text on page load
+    $(document).ready(function() {
+        // Update mode text if dark mode is active on page load
+        if ($('body').hasClass('dark-mode')) {
+            $('.mode-text').text('Light Mode');
+            $('#darkMode i').removeClass('fa-moon').addClass('fa-sun');
+        }
+    });
 
     
 
