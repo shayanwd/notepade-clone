@@ -236,16 +236,61 @@ $(document).ready(function() {
         }
     });
 
-    // Dark mode toggle
-    $('#darkMode').click(function() {
-        $('body').toggleClass('dark-mode');
-        // Update the mode text
-        const modeText = $('body').hasClass('dark-mode') ? 'Light Mode' : 'Dark Mode';
-        $('.mode-text').text(modeText);
-        // Optionally change the icon
-        const icon = $('body').hasClass('dark-mode') ? 'fa-sun' : 'fa-moon';
-        $(this).find('i').removeClass('fa-moon fa-sun').addClass(icon);
+    // Update view control handlers
+    $('#toggleLinesBtn').click(function() {
+        $(this).toggleClass('active');
+        showLines = !showLines;
+        if (showLines) {
+            $('#editor').css('background-image', '');  // Reset to CSS default
+        } else {
+            $('#editor').css('background-image', 'none');
+        }
+        localStorage.setItem('showLines', showLines);
     });
+
+    $('#darkModeBtn').click(function() {
+        $(this).toggleClass('active');
+        $('body').toggleClass('dark-mode');
+        const isDarkMode = $('body').hasClass('dark-mode');
+        $(this).find('i').removeClass('fa-moon fa-sun').addClass(isDarkMode ? 'fa-sun' : 'fa-moon');
+        localStorage.setItem('darkMode', isDarkMode);
+    });
+
+    $('#zoomInBtn').click(function() {
+        if (fontSize < 40) {
+            fontSize += 2;
+            editor.css('font-size', fontSize + 'px');
+            localStorage.setItem('fontSize', fontSize);
+        }
+    });
+
+    $('#zoomOutBtn').click(function() {
+        if (fontSize > 8) {
+            fontSize -= 2;
+            editor.css('font-size', fontSize + 'px');
+            localStorage.setItem('fontSize', fontSize);
+        }
+    });
+
+    $('#preferencesBtn').click(function() {
+        $('#preferencesModal').show();
+        loadPreferences();
+    });
+
+    // Load saved preferences on startup
+    const savedShowLines = localStorage.getItem('showLines') === 'true';
+    const savedDarkMode = localStorage.getItem('darkMode') === 'true';
+    
+    if (savedShowLines) {
+        $('#toggleLinesBtn').addClass('active');
+        showLines = true;
+    }
+    
+    if (savedDarkMode) {
+        $('#darkModeBtn').addClass('active');
+        $('body').addClass('dark-mode');
+        $('#darkModeBtn i').removeClass('fa-moon').addClass('fa-sun');
+    }
 
     // Auto-save to localStorage
     setInterval(function() {
@@ -258,22 +303,6 @@ $(document).ready(function() {
         editor.val(savedContent);
         updateCounts();
     }
-
-    // Zoom in
-    $('#zoomIn').click(function() {
-        if (fontSize < 40) {
-            fontSize += 2;
-            editor.css('font-size', fontSize + 'px');
-        }
-    });
-
-    // Zoom out
-    $('#zoomOut').click(function() {
-        if (fontSize > 8) {
-            fontSize -= 2;
-            editor.css('font-size', fontSize + 'px');
-        }
-    });
 
     // Add keyboard shortcuts
     $(document).keydown(function(e) {
@@ -300,11 +329,11 @@ $(document).ready(function() {
                 case '+':
                 case '=':
                     e.preventDefault();
-                    $('#zoomIn').click();
+                    $('#zoomInBtn').click();
                     break;
                 case '-':
                     e.preventDefault();
-                    $('#zoomOut').click();
+                    $('#zoomOutBtn').click();
                     break;
             }
         }
@@ -416,30 +445,38 @@ $(document).ready(function() {
     // Load Google Fonts
     async function loadGoogleFonts() {
         try {
-            // Add some default system fonts
-            const systemFonts = [
-                'Arial', 'Helvetica', 'Times New Roman', 'Times', 'Courier New', 
-                'Courier', 'Verdana', 'Georgia', 'Palatino', 'Garamond', 'Bookman',
-                'Comic Sans MS', 'Trebuchet MS', 'Impact'
+            // Add system and Google fonts
+            const fonts = [
+                // System Fonts
+                'Arial', 'Helvetica', 'Times New Roman', 'Courier New', 'Verdana', 
+                'Georgia', 'Palatino', 'Garamond', 'Bookman', 'Comic Sans MS', 
+                'Trebuchet MS', 'Impact',
+                // Google Fonts
+                'Roboto', 'Open Sans', 'Lato', 'Poppins', 'Montserrat', 'Source Code Pro'
             ];
             
             const select = $('#fontFamilySelect');
             
             // Add system fonts group
             const systemGroup = $('<optgroup label="System Fonts"></optgroup>');
-            systemFonts.forEach(font => {
+            fonts.slice(0, 12).forEach(font => {
                 systemGroup.append(`<option value="${font}">${font}</option>`);
             });
             select.append(systemGroup);
             
-            // Add Google Fonts
+            // Add Google fonts group
+            const googleGroup = $('<optgroup label="Google Fonts"></optgroup>');
+            fonts.slice(12).forEach(font => {
+                googleGroup.append(`<option value="${font}">${font}</option>`);
+            });
+            select.append(googleGroup);
+            
+            // If you want to add more Google Fonts via API
             const API_KEY = 'YOUR_GOOGLE_FONTS_API_KEY'; // Replace with your API key
             if (API_KEY !== 'YOUR_GOOGLE_FONTS_API_KEY') {
                 const response = await fetch(`https://www.googleapis.com/webfonts/v1/webfonts?key=${API_KEY}`);
                 const data = await response.json();
                 
-                // Add Google Fonts group
-                const googleGroup = $('<optgroup label="Google Fonts"></optgroup>');
                 data.items.forEach(font => {
                     googleGroup.append(`<option value="${font.family}">${font.family}</option>`);
                     
@@ -449,14 +486,12 @@ $(document).ready(function() {
                     link.rel = 'stylesheet';
                     document.head.appendChild(link);
                 });
-                select.append(googleGroup);
             }
             
             loadPreferences(); // Load saved preferences after fonts are loaded
         } catch (error) {
-            console.error('Error loading Google Fonts:', error);
-            // Still load preferences even if Google Fonts fail
-            loadPreferences();
+            console.error('Error loading fonts:', error);
+            loadPreferences(); // Still load preferences even if fonts fail
         }
     }
 
@@ -466,28 +501,6 @@ $(document).ready(function() {
             localStorage.setItem('notepadContent', editor.val());
         }
     });
-
-    $('#toggleLines').click(function() {
-        $(this).toggleClass('active');
-        showLines = !showLines;
-        if (showLines) {
-            $('#editor').css('background-image', '');  // Reset to CSS default
-        } else {
-            $('#editor').css('background-image', 'none');
-        }
-        localStorage.setItem('showLines', showLines);
-    });
-
-    // Load lines preference
-    const savedLinesPreference = localStorage.getItem('showLines');
-    if (savedLinesPreference !== null) {
-        showLines = savedLinesPreference === 'true';
-        if (!showLines) {
-            $('#editor').css('background-image', 'none');
-        } else {
-            $('#toggleLines').addClass('active');
-        }
-    }
 
     // Save As functionality
     $('#saveAsFile').click(function() {

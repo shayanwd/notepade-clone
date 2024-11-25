@@ -5,9 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notepad</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Arial&family=Helvetica&family=Times+New+Roman&family=Courier+New&family=Verdana&family=Georgia&family=Palatino&family=Garamond&family=Bookman&family=Comic+Sans+MS&family=Trebuchet+MS&family=Impact&display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Open+Sans:wght@300;400;500;700&family=Lato:wght@300;400;700;900&family=Poppins:wght@300;400;500;700;900&family=Montserrat:wght@300;400;500;700;900&family=Source+Code+Pro:wght@300;400;500;700;900&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -61,7 +66,7 @@
                     <a href="#" id="duplicateText"><i class="fas fa-clone"></i> Duplicate</a>
                 </div>
             </div>
-            <div class="dropdown">
+            <!-- <div class="dropdown">
                 <button class="dropbtn">View <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path d="M12.66 5.67L8.33 10L4 5.67L12.66 5.67Z" fill="black" />
@@ -77,7 +82,7 @@
                     <a href="#" id="zoomOut"><i class="fas fa-search-minus"></i> Zoom Out </a>
                     <a href="#" id="preferences"><i class="fas fa-cog"></i> Preferences</a>
                 </div>
-            </div>
+            </div> -->
 
             <div class="dropdown">
                 <button class="dropbtn">Share <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
@@ -186,17 +191,57 @@
                 <button id="pasteTextBtn" data-tooltip="Paste from clipboard"><i class="fas fa-paste"></i></button>
                 <button id="duplicateTextBtn" data-tooltip="Duplicate selection"><i class="fas fa-clone"></i></button>
             </div>
-            <div class="menu-group">
-                <button id="undoBtn" data-tooltip="Undo last action"><i class="fas fa-undo"></i></button>
-                <button id="redoBtn" data-tooltip="Redo last action"><i class="fas fa-redo"></i></button>
+            <div class="menu-group view-controls">
+                <button id="toggleLinesBtn" data-tooltip="Toggle line numbers"><i class="fas fa-bars"></i></button>
+                <button id="darkModeBtn" data-tooltip="Toggle dark mode"><i class="fas fa-moon"></i></button>
+                <button id="zoomInBtn" data-tooltip="Zoom in"><i class="fas fa-search-plus"></i></button>
+                <button id="zoomOutBtn" data-tooltip="Zoom out"><i class="fas fa-search-minus"></i></button>
+                <!-- <button id="preferencesBtn" data-tooltip="Open preferences"><i class="fas fa-cog"></i></button> -->
             </div>
-            <div class="menu-group">
-                <div class="preference-item">
-                    <label>Font size</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="fontSizeInput" min="8" max="72" value="14">
-                        <span class="unit">px</span>
+            <div class="menu-group font-controls">
+                <div class="controls-group">
+                    <div class="preference-item">
+                        <label>Size:</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="fontSizeInput" min="8" max="72" value="14">
+                            <span class="unit">px</span>
+                        </div>
                     </div>
+
+                    <div class="preference-item">
+                        <label>Font:</label>
+                        <select id="fontFamilySelect">
+                            <option value="default">Default</option>
+                            <!-- Other options will be populated by JavaScript -->
+                        </select>
+                    </div>
+
+                    <div class="preference-item">
+                        <label>Weight:</label>
+                        <select id="fontWeightSelect">
+                            <option value="300">Light</option>
+                            <option value="400">Regular</option>
+                            <option value="500">Medium</option>
+                            <option value="700">Bold</option>
+                            <option value="900">Bolder</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="settings-group">
+                    <div class="preference-item autosave-item">
+                        <label class="switch-label">
+                            <span>Auto-save</span>
+                            <div class="switch">
+                                <input type="checkbox" id="autoSaveOnClose">
+                                <span class="slider"></span>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button id="resetPreferences" class="reset-btn" title="Reset all preferences">
+                        <i class="fas fa-undo-alt"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -233,27 +278,9 @@
                     </label>
                 </div>
 
-                <div class="preference-item">
-                    <label>Font family</label>
-                    <div class="font-search">
-                        <div class="search-input">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="fontSearch" placeholder="Search fonts...">
-                        </div>
-                        <select id="fontFamilySelect" size="5"></select>
-                    </div>
-                </div>
 
-                <div class="preference-item">
-                    <label>Font weight</label>
-                    <select id="fontWeightSelect">
-                        <option value="300">Light</option>
-                        <option value="400">Regular</option>
-                        <option value="500">Medium</option>
-                        <option value="700">Bold</option>
-                        <option value="900">Bolder</option>
-                    </select>
-                </div>
+
+
             </div>
         </div>
     </div>
